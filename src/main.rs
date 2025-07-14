@@ -36,6 +36,19 @@ fn main() {
         [0,0,0,0,0,0,0,0,0,0],
     ];
 
+    let mut guess_board: [[i32; 10]; 10] = [
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+    ];
+
     println!("Welcome to battleships!");
 
     // Place an enemy ship randomly on the board
@@ -45,6 +58,8 @@ fn main() {
 
     // Game loop
     while !is_game_over {
+        //print_board(&board); // Print the initial board
+
         // Input the x coordinate of the guess
         let mut guess_x = String::new();
         println!("Enter the x coordinate of your guess (0-9):");
@@ -58,15 +73,24 @@ fn main() {
 
         // Input the y coordinate of the guess
         let mut guess_y = String::new();
-        println!("Enter the x coordinate of your guess (0-9):");
+        println!("Enter the y coordinate of your guess (0-9):");
         io::stdin()
             .read_line(&mut guess_y)
             .expect("Failed to read line");
         let guess_y: i32 = guess_y
             .trim()
             .parse()
-            .expect("Please type a whole number!");  
+            .expect("Please type a whole number!");
 
-        print_board(&board); // Print the initial board
+        // Check if the guessed position is a hit or miss
+        if board[guess_y as usize][guess_x as usize] == 1 {
+            println!("Hit!");
+            guess_board[guess_y as usize][guess_x as usize] = 2; // Mark the hit position with 2
+            print_board(&guess_board);
+        } else {
+            println!("Miss!");
+            guess_board[guess_y as usize][guess_x as usize] = 1; // Mark the missed position with 'x'
+            print_board(&guess_board);
+        }
     }
 }
