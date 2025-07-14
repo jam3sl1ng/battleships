@@ -38,13 +38,13 @@ fn main() {
 
     println!("Welcome to battleships!");
 
+    // Place an enemy ship randomly on the board
+    for i in 0..5 {
+        place_enemy_ship(&mut board);
+    }
+
     // Game loop
     while !is_game_over {
-        // Place an enemy ship randomly on the board
-        for i in 0..5 {
-            place_enemy_ship(&mut board);
-        }
-
         // Input the x coordinate of the guess
         let mut guess_x = String::new();
         println!("Enter the x coordinate of your guess (0-9):");
